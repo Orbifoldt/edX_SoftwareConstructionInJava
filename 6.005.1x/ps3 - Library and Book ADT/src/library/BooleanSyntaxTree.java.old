@@ -1,0 +1,149 @@
+package library;
+
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import static library.BooleanSyntaxTreeNode.*;
+
+/**
+ * Created by Jeroen on 22-07-17.
+ */
+public class BooleanSyntaxTree {
+    // The syntax symbols, here as regex pattern strings
+    private static final String OPEN = "[(]";
+    private static final String CLOSE = "[)]";
+    private static final String AND = "AND";
+    private static final String OR = "OR";
+    private static final String NOT = "NOT";
+    private BooleanSyntaxTreeNode root;
+
+    private static final String standardReplacement = "OR"; // standard replace whitespaces with OR
+
+//    public static enum types {
+//        AND, OR, NOT, OPEN, CLOSE
+//    }
+
+    /**
+     * Requires input to have only single spaces as whitespaces and no whitespaces at the beginning and end, and
+     * it should have correct grammer (so no words directly against parenthesis etc
+     * @param input
+     */
+    public BooleanSyntaxTree(String input) {
+        String modifiedInput = "(" + input + ")";
+//        modifiedInput = modifiedInput.replace(" ", " ) " + standardReplacement + " ( ");
+
+
+
+//        Matcher openMatcher = Pattern.compile(OPEN).matcher(modifiedInput);
+//        Matcher closeMatcher = Pattern.compile(CLOSE).matcher(modifiedInput);
+//        Matcher andMatcher = Pattern.compile(AND).matcher(modifiedInput);
+//        Matcher orMatcher = Pattern.compile(OR).matcher(modifiedInput);
+//        Matcher notMatcher = Pattern.compile(NOT).matcher(modifiedInput);
+
+//        String[] split = modifiedInput.split("[(]|[)]|([A][N][D])|([O][R])|([N][O][T])",-1);
+        String[] split = modifiedInput.split("\\s+");
+        for (String str : split) {
+            System.out.println(str);
+        }
+        System.out.println(split.length);
+
+    }
+
+//    public BooleanSyntaxTree(){
+//        root = new BooleanSyntaxTreeNode(NodeType.OR);
+//    }
+
+
+    private static String[] findOuterParentheses(String[] query) {
+        int subLevel = 0;
+        int beginIndex = 0;
+        int endIndex = 0;
+        for (int i = 0; i < query.length; i++) {
+            String letter = query[i];
+//            System.out.println("Character: '" + letter + "' at index " + i + " on subLevel: " + subLevel);
+            if (subLevel == 0) {
+                if (letter.equals(OPEN)) {
+//                    System.out.println("=========== begin of parenthesis =========== ");
+                    beginIndex = i;
+                    subLevel = 1;
+                } else continue;
+            } else {
+                if (letter.equals(OPEN)) {
+                    subLevel++;
+                    continue;
+                }
+                if (subLevel > 1 && letter.equals(CLOSE)) {
+                    subLevel--;
+                    continue;
+                }
+                if (subLevel == 1 && letter.equals(CLOSE)) {
+//                    System.out.println("=========== end of parenthesis=========== ");
+                    endIndex = i;
+                    break;
+                }
+            }
+        }
+        String outerString = "";
+        String innerString = "";
+//        String modifiedQuery = query;
+//        innerString = modifiedQuery.substring(beginIndex+1,endIndex);
+
+        String[] output = new String[2];
+        output[0] = outerString;
+        output[1] = innerString;
+
+        return output;
+
+
+//        private static List<String> removeSubstringsInParentheses (String query){
+//            int beginIndex = 0;
+//            int endIndex = 0;
+//            for (int i = 0; i < query.length(); i++) {
+//                char letter = query.toCharArray()[i];
+////            System.out.println("Character: '"+letter+"' at index " + i);
+//                if (letter == "(".charAt(0)) {
+////                System.out.println("=========== begin of new parenthesis =========== ");
+//                    beginIndex = i;
+//                }
+//                if (letter == ")".charAt(0)) {
+////                System.out.println("=========== end of parentheses =========== ");
+//                    endIndex = i;
+//                    break;
+//                }
+//            }
+//
+//            ArrayList<String> quotes = new ArrayList<>();
+//            quotes.add(Integer.toString(beginIndex));
+//            quotes.add(Integer.toString(endIndex));
+//            return quotes;
+
+
+//        int count = 0;
+//        Pattern pattern = Pattern.compile("[(]([^)]+?)[)]");  // a quotation mark, >0 non-quotation-mark characters
+//        Matcher matcher = pattern.matcher(query);
+//        while (matcher.find()) {
+//            String match = matcher.group(0);
+//            quotes.add(match.substring(1,match.length()-1));
+//            query = query.replace(match, " ");
+//            // query was modified, update matcher
+//            matcher = pattern.matcher(query);
+//            count++;
+//            if (count>10) break;
+//        }
+//        return quotes;
+        }
+
+    public static void main(String[] args) {
+//        System.out.println(findOuterParentheses("a")[1]);
+//        System.out.println(findOuterParentheses("a(b)")[1]);
+//        System.out.println(findOuterParentheses("a(b(c)d)")[1]);
+//        System.out.println(findOuterParentheses("a(b(c(d(e)f)g)h(i)j)k")[1]);
+//        System.out.println(findOuterParentheses("a(b(c(d(e)f)g)h(i)j)k")[1]);
+        BooleanSyntaxTree test;
+        test = new BooleanSyntaxTree("a OR ( b AND c ) d");
+    }
+}

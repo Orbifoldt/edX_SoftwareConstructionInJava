@@ -1,0 +1,29 @@
+package library;
+
+import java.util.ArrayList;
+
+/**
+ * Created by Jeroen on 22-07-17.
+ */
+public class BooleanSyntaxTreeNode {
+    private BooleanSyntaxTreeNode parent;
+    private ArrayList<BooleanSyntaxTreeNode> childeren;
+    private final NodeType type;
+
+    public static enum NodeType {
+        AND, OR, NOT
+    }
+
+    public BooleanSyntaxTreeNode(NodeType type){
+        this.type = type;
+        this.parent = null;
+        this.childeren = new ArrayList<>();
+    }
+
+    public BooleanSyntaxTreeNode(NodeType type, BooleanSyntaxTreeNode parent) {
+        this(type);
+        this.parent = parent;
+    }
+
+
+}

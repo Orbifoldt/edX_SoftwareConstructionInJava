@@ -1,0 +1,14 @@
+The folder minesweeper has all the compiled java files
+
+Start the server as follows:
+open terminal or cmd window
+cd to the correct folder
+run the following:
+"java minesweeper.server.MinesweeperServer --port 4444"
+   possibly add other options like: "--size x y", "--file filename" 
+   (see the java files for details)
+
+Connect as client by entering in a different terminal/cmd window:
+telnet 127.0.0.1 4444 (for local clients)
+or:
+telnet 192.168.1.173 4444 (example of local network clients)
